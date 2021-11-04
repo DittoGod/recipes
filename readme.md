@@ -4,3 +4,6 @@ There is no starter project for this chapter as you'll create it from scratch us
 
 # Generating the .part file
 run -> flutter pub run build_runner build
+
+## Watching and regenetating the .part file
+run -> flutter pub run build_runner watch
