@@ -63,7 +63,15 @@ class _RecipeListState extends State<RecipeList> {
       });
   }
 
-  // TODO: Add getRecipeData() here
+  // 1
+  Future<APIRecipeQuery> getRecipeData(String query, int from, int to) async {
+    // 2
+    final recipeJson = await RecipeService().getRecipes(query, from, to);
+    // 3
+    final recipeMap = json.decode(recipeJson);
+    // 4
+    return APIRecipeQuery.fromJson(recipeMap);
+  }
 
   // TODO: Delete loadRecipes()
   Future loadRecipes() async {
@@ -211,7 +219,32 @@ class _RecipeListState extends State<RecipeList> {
     );
   }
 
-  // TODO: Add _buildRecipeList()
+  // 1
+  Widget _buildRecipeList(BuildContext recipeListContext, List<APIHits> hits) {
+    // 2
+    final size = MediaQuery.of(context).size;
+    const itemHeight = 310;
+    final itemWidth = size.width / 2;
+    // 3
+    return Flexible(
+      // 4
+      child: GridView.builder(
+        // 5
+        controller: _scrollController,
+        // 6
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: (itemWidth / itemHeight),
+        ),
+        // 7
+        itemCount: hits.length,
+        // 8
+        itemBuilder: (BuildContext context, int index) {
+          return _buildRecipeCard(recipeListContext, hits, index);
+        },
+      ),
+    );
+  }
 
   Widget _buildRecipeCard(
       BuildContext topLevelContext, List<APIHits> hits, int index) {
