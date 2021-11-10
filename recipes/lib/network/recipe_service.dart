@@ -20,7 +20,26 @@ abstract class RecipeService extends ChopperService {
     @Query('from') int from,
     @Query('to') int to,
   );
-  // TODO: Add create()
+
+  static RecipeService create() {
+    // 1
+    final client = ChopperClient(
+      // 2
+      baseUrl: apiUrl,
+      // 3
+      interceptors: [_addQuery, HttpLoggingInterceptor()],
+      // 4
+      converter: ModelConverter(),
+      // 5
+      errorConverter: const JsonConverter(),
+      // 6
+      services: [
+        _$RecipeService(),
+      ],
+    );
+    // 7
+    return _$RecipeService(client);
+  }
 }
 
 Request _addQuery(Request req) {
