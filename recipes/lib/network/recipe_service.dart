@@ -2,6 +2,7 @@ import 'package:chopper/chopper.dart';
 import 'recipe_model.dart';
 import 'model_response.dart';
 import 'model_converter.dart';
+part 'recipe_service.chopper.dart';
 
 const String apiId = '3eb7799a';
 const String apiKey = '804cb1c94e154049dd8138a87d25a34e';
