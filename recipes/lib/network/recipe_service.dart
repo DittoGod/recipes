@@ -22,4 +22,13 @@ abstract class RecipeService extends ChopperService {
   );
   // TODO: Add create()
 }
-// TODO: Add _addQuery()
+
+Request _addQuery(Request req) {
+  // 1
+  final params = Map<String, dynamic>.from(req.parameters);
+  // 2
+  params['app_id'] = apiId;
+  params['app_key'] = apiKey;
+  // 3
+  return req.copyWith(parameters: params);
+}
