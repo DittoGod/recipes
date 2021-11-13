@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+
+import '../../data/models/recipe.dart';
+import '../../data/memory_repository.dart';
 
 class MyRecipesList extends StatefulWidget {
   const MyRecipesList({Key? key}) : super(key: key);
@@ -85,5 +89,18 @@ class _MyRecipesListState extends State<MyRecipesList> {
           );
         });
     // TODO 9
+  }
+
+  void deleteRecipe(MemoryRepository repository, Recipe recipe) async {
+    if (recipe.id != null) {
+      // 1
+      repository.deleteRecipeIngredients(recipe.id!);
+      // 2
+      repository.deleteRecipe(recipe);
+      // 3
+      setState(() {});
+    } else {
+      print('Recipe id is null');
+    }
   }
 }
